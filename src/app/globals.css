@@ -1,0 +1,460 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════
+   LeakMap AI — "The Sovereign Terminal" Design System
+   Premium dark operator console
+   Based on Stitch MCP design: Palantir × Bloomberg hybrid
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  /* ─ Canvas Layers (Tonal Transition System) ─ */
+  --lm-base: #060a0d;
+  --lm-canvas: #0b0f13;
+  --lm-surface: #101418;
+  --lm-surface-low: #181c20;
+  --lm-surface-mid: #1c2024;
+  --lm-surface-high: #262a2f;
+  --lm-surface-highest: #31353a;
+
+  /* ─ Ghost Borders (felt, not seen) ─ */
+  --lm-ghost: rgba(86,66,60,0.15);
+  --lm-ghost-strong: rgba(86,66,60,0.28);
+  --lm-ghost-active: rgba(86,66,60,0.45);
+
+  /* ─ Warm Text Hierarchy ─ */
+  --lm-text: #e0e3e8;
+  --lm-text-warm: #e8e4dd;
+  --lm-text-secondary: #9a9590;
+  --lm-text-tertiary: #625e59;
+  --lm-text-quaternary: #3d3a37;
+
+  /* ─ Primary / Rust ─ */
+  --lm-accent: #c45a35;
+  --lm-accent-hover: #e17049;
+  --lm-accent-text: #ffb59d;
+  --lm-accent-surface: rgba(196,90,53,0.08);
+  --lm-accent-on: #5d1800;
+
+  /* ─ Critical / Red-Orange ─ */
+  --lm-critical: #e85a3a;
+  --lm-critical-text: #ffb5a0;
+  --lm-critical-surface: rgba(232,90,58,0.06);
+
+  /* ─ Success / Teal ─ */
+  --lm-success: #37a98a;
+  --lm-success-dim: #2ea284;
+  --lm-success-text: #6ddab8;
+  --lm-success-surface: rgba(55,169,138,0.06);
+
+  /* ─ Warning / Amber ─ */
+  --lm-warning: #c49538;
+  --lm-warning-text: #f2be5d;
+  --lm-warning-surface: rgba(196,149,56,0.06);
+
+  /* ─ Shape ─ */
+  --lm-radius: 3px;
+
+  /* ─ Ambient Shadows ─ */
+  --lm-shadow: 0px 8px 24px rgba(11,15,19,0.40);
+}
+
+@theme inline {
+  --color-background: var(--lm-canvas);
+  --color-foreground: var(--lm-text);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-plex-mono);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: var(--lm-base);
+  scrollbar-width: thin;
+  scrollbar-color: var(--lm-surface-mid) transparent;
+}
+
+body {
+  margin: 0;
+  background: var(--lm-canvas);
+  color: var(--lm-text-warm);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+::selection { background: rgba(196,90,53,0.35); }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--lm-surface-mid); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--lm-surface-high); }
+
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+
+/* ─── Typography Classes ─── */
+.lm-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--lm-text-tertiary);
+  font-family: var(--font-plex-mono), monospace;
+}
+
+.lm-mono {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 11px;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Tab Bar ─── */
+.lm-tabs {
+  display: flex;
+  gap: 0;
+  background: var(--lm-surface);
+  padding: 0 16px;
+  /* No border — use tonal transition */
+}
+
+.lm-tab {
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--lm-text-quaternary);
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 100ms;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.lm-tab:hover { color: var(--lm-text-secondary); }
+.lm-tab[data-active="true"] {
+  color: var(--lm-text-warm);
+  border-bottom-color: var(--lm-accent);
+}
+
+/* ─── Status Badges ─── */
+.lm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  white-space: nowrap;
+  font-family: var(--font-plex-mono), monospace;
+}
+
+.lm-badge-critical {
+  background: var(--lm-critical-surface);
+  color: var(--lm-critical-text);
+  box-shadow: inset 0 0 0 1px rgba(232,90,58,0.20);
+}
+.lm-badge-review {
+  background: var(--lm-warning-surface);
+  color: var(--lm-warning-text);
+  box-shadow: inset 0 0 0 1px rgba(196,149,56,0.20);
+}
+.lm-badge-licensed {
+  background: var(--lm-success-surface);
+  color: var(--lm-success-text);
+  box-shadow: inset 0 0 0 1px rgba(55,169,138,0.20);
+}
+.lm-badge-synthetic {
+  background: rgba(255,255,255,0.03);
+  color: var(--lm-text-tertiary);
+  box-shadow: inset 0 0 0 1px var(--lm-ghost);
+}
+
+/* ─── Score Meter ─── */
+.lm-meter {
+  height: 3px;
+  background: var(--lm-ghost);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.lm-meter-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 400ms cubic-bezier(0.16,1,0.3,1);
+}
+.lm-meter-accent { background: linear-gradient(90deg, var(--lm-accent), var(--lm-accent-hover)); }
+.lm-meter-critical { background: linear-gradient(90deg, var(--lm-critical), #ff7a57); }
+.lm-meter-success { background: linear-gradient(90deg, var(--lm-success), var(--lm-success-dim)); }
+.lm-meter-warning { background: linear-gradient(90deg, var(--lm-warning), #d4aa50); }
+
+/* ─── High-Density Table (no dividers, alternating rows) ─── */
+.lm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.lm-table th {
+  text-align: left;
+  padding: 7px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lm-text-quaternary);
+  font-family: var(--font-plex-mono), monospace;
+  white-space: nowrap;
+  background: var(--lm-surface);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.lm-table td {
+  padding: 8px 12px;
+  color: var(--lm-text-secondary);
+  vertical-align: middle;
+}
+.lm-table tbody tr {
+  cursor: pointer;
+  transition: background 60ms;
+}
+/* Alternating rows instead of borders */
+.lm-table tbody tr:nth-child(even) {
+  background: var(--lm-surface);
+}
+.lm-table tbody tr:nth-child(odd) {
+  background: var(--lm-surface-low);
+}
+.lm-table tbody tr:hover {
+  background: var(--lm-surface-mid) !important;
+}
+.lm-table tbody tr[data-selected="true"] {
+  background: var(--lm-accent-surface) !important;
+  box-shadow: inset 3px 0 0 var(--lm-accent);
+}
+.lm-table tbody tr[data-selected="true"] td {
+  color: var(--lm-text-warm);
+}
+
+/* ─── KV Row ─── */
+.lm-kv {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 5px 0;
+}
+.lm-kv-label {
+  font-size: 11px;
+  color: var(--lm-text-tertiary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.lm-kv-value {
+  font-size: 12px;
+  color: var(--lm-text-warm);
+  text-align: right;
+  word-break: break-word;
+}
+
+/* ─── Animations ─── */
+@keyframes lm-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+@keyframes lm-fade-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lm-pulse { animation: lm-pulse 2.5s ease-in-out infinite; }
+.lm-fade-in { animation: lm-fade-in 150ms ease-out; }
+
+/* ─── Status Dot ─── */
+.lm-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.lm-dot-live {
+  background: var(--lm-success);
+  box-shadow: 0 0 6px var(--lm-success);
+  animation: lm-pulse 2.5s ease-in-out infinite;
+}
+.lm-dot-queued { background: var(--lm-warning); }
+.lm-dot-synced { background: var(--lm-success); }
+.lm-dot-critical {
+  background: var(--lm-critical);
+  box-shadow: 0 0 6px var(--lm-critical);
+}
+
+/* ─── Propagation Chain ─── */
+.lm-chain {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  padding: 16px 0;
+}
+.lm-chain-node {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  background: var(--lm-surface-mid);
+  border-radius: var(--lm-radius);
+  min-width: 140px;
+  /* Ghost border, not solid line */
+  box-shadow: inset 0 0 0 1px var(--lm-ghost);
+}
+.lm-chain-edge {
+  flex-shrink: 0;
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--lm-accent-surface), var(--lm-ghost));
+}
+
+/* ─── Section Title ─── */
+.lm-section-title {
+  padding: 12px 16px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--lm-text-quaternary);
+  font-family: var(--font-plex-mono), monospace;
+}
+
+/* ─── Evidence Tone Cards (left-accent bar) ─── */
+.lm-evidence-critical {
+  box-shadow: inset 3px 0 0 var(--lm-critical);
+  background: var(--lm-critical-surface);
+}
+.lm-evidence-elevated {
+  box-shadow: inset 3px 0 0 var(--lm-warning);
+  background: var(--lm-warning-surface);
+}
+.lm-evidence-neutral {
+  box-shadow: inset 3px 0 0 var(--lm-ghost-strong);
+  background: rgba(255,255,255,0.015);
+}
+
+/* ─── Inputs (Inset appearance) ─── */
+.lm-input {
+  width: 100%;
+  padding: 6px 10px;
+  background: var(--lm-surface-low);
+  border: none;
+  border-bottom: 1px solid var(--lm-ghost);
+  border-radius: var(--lm-radius) var(--lm-radius) 0 0;
+  color: var(--lm-text-warm);
+  font-size: 12px;
+  outline: none;
+  transition: border-color 120ms;
+}
+.lm-input:focus { border-bottom-color: var(--lm-accent); }
+.lm-input::placeholder { color: var(--lm-text-quaternary); }
+
+.lm-select {
+  width: 100%;
+  padding: 6px 10px;
+  background: var(--lm-surface-low);
+  border: none;
+  border-bottom: 1px solid var(--lm-ghost);
+  border-radius: var(--lm-radius) var(--lm-radius) 0 0;
+  color: var(--lm-text-warm);
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  transition: border-color 120ms;
+}
+.lm-select:focus { border-bottom-color: var(--lm-accent); }
+
+.lm-textarea {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--lm-surface-low);
+  border: none;
+  border-bottom: 1px solid var(--lm-ghost);
+  border-radius: var(--lm-radius) var(--lm-radius) 0 0;
+  color: var(--lm-text-warm);
+  font-size: 12px;
+  outline: none;
+  resize: vertical;
+  min-height: 52px;
+  transition: border-color 120ms;
+  font-family: inherit;
+}
+.lm-textarea:focus { border-bottom-color: var(--lm-accent); }
+
+/* ─── Buttons (Compact 28-32px) ─── */
+.lm-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 12px;
+  background: linear-gradient(135deg, var(--lm-accent-hover), var(--lm-accent));
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--lm-radius);
+  cursor: pointer;
+  transition: all 100ms;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.lm-btn-primary:hover { filter: brightness(1.1); transform: translateY(-0.5px); }
+.lm-btn-primary:active { transform: scale(0.98) translateY(0); }
+.lm-btn-primary:disabled { opacity: 0.4; cursor: not-allowed; filter: none; transform: none; }
+
+.lm-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 12px;
+  background: transparent;
+  color: var(--lm-text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  border: none;
+  box-shadow: inset 0 0 0 1px var(--lm-ghost-strong);
+  border-radius: var(--lm-radius);
+  cursor: pointer;
+  transition: all 100ms;
+  white-space: nowrap;
+}
+.lm-btn-secondary:hover { color: var(--lm-text-warm); background: var(--lm-surface-mid); }
+
+.lm-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 10px;
+  background: transparent;
+  color: var(--lm-text-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--lm-radius);
+  cursor: pointer;
+  transition: color 100ms;
+}
+.lm-btn-ghost:hover { color: var(--lm-text-secondary); text-decoration: underline; }
+
+/* ─── Checklist ─── */
+.lm-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+}
